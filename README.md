@@ -1,5 +1,7 @@
 # hslbikes
 
+Show HSL bike station situation.
+![Screenshot showing a search field for filtering results, and table filled with station name and amount of bikes.](screenshot.png ) 
 ## Project setup
 ```
 npm install
