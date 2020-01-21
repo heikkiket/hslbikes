@@ -1,6 +1,9 @@
 <template>
   <div id="app">
       <h1>HSL pyörämäärät</h1>
+      <p>
+          <small>Heikki Ketoharju 2020</small>
+      </p>
       <label>
           Suodata aseman nimellä:
           <input type="text" @input="updateFilter" />
