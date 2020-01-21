@@ -2,11 +2,11 @@
   <div id="app">
       <h1>HSL pyörämäärät</h1>
       <label>
-          Suodata: 
-          <input type="text" />
+          Suodata aseman nimellä:
+          <input type="text" @input="updateFilter" />
       </label>
       <table>
-        <thead><tr><td>Aseman nimi</td><td>Pyöriä saatavilla</td></tr></thead>
+        <thead><tr><th>Aseman nimi</th><th>Pyöriä saatavilla</th></tr></thead>
         <tbody>
             <Station v-bind:key="station.stationId" v-for="station in stations" :station="station" />
         </tbody>
@@ -16,6 +16,7 @@
 
 <script>
 import Station from './components/Station.vue'
+import debounce from 'debounce'
 
 export default {
     name: 'app',
@@ -24,7 +25,7 @@ export default {
     },
     data() {
         return {
-            test: 'foo'
+            keyword: ''
         }
     },
     mounted() {
@@ -32,8 +33,23 @@ export default {
     },
     computed: {
         stations() {
-            return this.$store.state.stations;
+            if(this.keyword == '') {
+                return this.$store.state.stations;
+            } else {
+                return this.$store.state.stations.filter((station) => {
+                    if(station.name.toLowerCase().search(this.keyword.toLowerCase()) === -1) {
+                        return false;
+                    }
+                    return true;
+                });
+            }
         }
+    },
+    methods: {
+        // Wait 250 milliseconds until updating the search key
+        updateFilter: debounce(function(e) {
+            this.keyword = e.target.value;
+            }, 250),
     }
 }
 </script>
@@ -54,10 +70,15 @@ export default {
 
  table {
      margin: 0 auto;
+     border-collapse: collapse;
  }
 
  label, input {
      margin: 0.5rem;
+ }
+
+ th {
+     font-weight: bold;
  }
 
 </style>
