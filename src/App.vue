@@ -8,18 +8,17 @@
           Suodata aseman nimellä:
           <input type="text" @input="updateFilter" />
       </label>
-      <table>
-        <thead><tr><th>Aseman nimi</th><th>Pyöriä saatavilla</th></tr></thead>
-        <tbody>
-            <Station v-bind:key="station.stationId" v-for="station in stations" :station="station" />
-        </tbody>
-    </table>
+      <div id="wrapper">
+          <div class="row"><div class="col col-6">Aseman nimi</div><div class="col">Näytä</div><div class="col">Pyöriä saatavilla</div></div>
+          <Station v-bind:key="station.stationId" v-for="station in stations" :station="station" />
+      </div>
   </div>
 </template>
 
 <script>
 import Station from './components/Station.vue'
 import debounce from 'debounce'
+import 'leaflet/dist/leaflet.css'
 
 export default {
     name: 'app',
@@ -67,14 +66,15 @@ export default {
   margin-top: 60px;
 }
 
- table, tr, td {
+ #wrapper {
+     max-width: 600px;
+     margin: 0 auto;
+ }
+
+ .col {
      border: 1px solid black;
  }
 
- table {
-     margin: 0 auto;
-     border-collapse: collapse;
- }
 
  label, input {
      margin: 0.5rem;

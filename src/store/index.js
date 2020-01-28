@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   actions: {
       getBikeStations({state, commit}) {
-          let graphql = '{bikeRentalStations {name stationId bikesAvailable}}';
+          let graphql = '{bikeRentalStations {name stationId bikesAvailable lat lon}}';
           let headers = new Headers();
           headers.append('Content-Type', 'application/graphql');
 
