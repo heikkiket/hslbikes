@@ -27,17 +27,16 @@ export default {
     methods: {
         hideshow() {
             this.mapToggled = !this.mapToggled;
-            this.map = L.map(this.dynId).setView([this.station.lat, this.station.lon], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-            }).addTo(this.map);
-            L.marker([this.station.lat, this.station.lon]).addTo(this.map);
-
-            //HACK to get map loading work
-            this.map.mapObject._onResize();
-        }
+            setTimeout(() => {
+                this.map = L.map(this.dynId).setView([this.station.lat, this.station.lon], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                }).addTo(this.map);
+                L.marker([this.station.lat, this.station.lon]).addTo(this.map);
+            }, 100);
+        },
     },
     watch: {
     },
