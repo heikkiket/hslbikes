@@ -7,8 +7,8 @@
         </p>
         <p class="temphi-lo">Päivän ylin: {{weather.main.temp_max}}<br/>
         Yön alin: {{weather.main.temp_min}}</p>
-        <p class="sunrise-sunset">Aurinko nousee (Unix-aikaa): {{weather.sys.sunrise}}<br>
-            Aurinko laskee (Unix-aikaa): {{weather.sys.sunset}}</p>
+        <p class="sunrise-sunset">Aurinko nousee: {{sunrise}}<br>
+            Aurinko laskee: {{sunset}}</p>
         <p class="wind">Tuulen nopeus: {{weather.wind.speed}} m/s</p>
     </div>
 </template>
@@ -20,7 +20,7 @@ export default {
     },
     data () {
         return {
-            apiUrl: 'http://api.openweathermap.org/data/2.5/weather',
+            apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
             apikey: 'e7131e991d976c29f02e4d55d78ddc32',
             city: 'Helsinki',
             weather: null
@@ -33,7 +33,17 @@ export default {
     },
     computed: {
         iconUrl() {
-    return "http://openweathermap.org/img/wn/" + this.weather.weather[0].icon + "@2x.png"
+            return "http://openweathermap.org/img/wn/" + this.weather.weather[0].icon + "@2x.png"
+        },
+        sunset() {
+            let dateObj = new Date(this.weather.sys.sunset * 1000);
+            let UTCstring = dateObj.toUTCString();
+            return UTCstring;
+        },
+        sunrise() {
+            let dateObj = new Date(this.weather.sys.sunrise * 1000);
+            let UTCstring = dateObj.toUTCString();
+            return UTCstring;
         }
     },
     methods: {
