@@ -5,8 +5,14 @@
             <small>Heikki Ketoharju 2020</small>
         </p>
         <nav>
-            <button @click="showTab('stations')">Asemat</button>
-            <button @click="showTab('weather')">Sää</button>
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" :class="{active:tab=='stations'}" @click="showTab('stations')">Asemat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" :class="{active:tab=='weather'}" @click="showTab('weather')">Sää</a>
+                </li>
+            </ul>
         </nav>
         <Stations v-show="curTab('stations')"></Stations>
         <Weather v-show="curTab('weather')"></Weather>
@@ -26,7 +32,7 @@ export default {
     },
     data () {
         return {
-            tab: 'stations'
+            tab: 'stations',
         }
     },
     watch: {
@@ -48,5 +54,9 @@ export default {
 </script>
 
 <style scoped>
+ nav {
+     margin: 0 auto 2rem auto;
+     text-align: center;
+ }
 
 </style>
